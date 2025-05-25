@@ -10,6 +10,8 @@ const Dashboard = ({ user }) => {
   const [showData, setShowData] = useState(null);
   const navigate = useNavigate();
 
+
+
   useEffect(() => {
     axios.get('http://localhost:5000/api/patients')
       .then(response => {
@@ -71,6 +73,7 @@ const Dashboard = ({ user }) => {
           <p><strong>Nurse:</strong> {showData.nurse}</p>
           <p><strong>Contact:</strong> {showData.contact}</p>
           <p><strong>Status:</strong> {showData.statusText}</p>
+
         </div>
       )}
 

@@ -4,11 +4,31 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./PatientDetail.css";
 
 const PatientDetail = () => {
+  const [humidity, setHumidity] = useState(null); //Temporary variable for humidity
+  const [place, setPlace] = useState(null); //Temporary variable for place
   const [patients, setPatients] = useState([]);
   const [patientIndex, setPatientIndex] = useState(null);
   const [patient, setPatient] = useState(null);
   const { id } = useParams(); // MongoDB ID
   const navigate = useNavigate();
+
+   useEffect(() => {
+    const fetchSensorData = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/sensor");
+        setHumidity(res.data.humidity);
+        setPlace(res.data.place);
+      } catch (err) {
+        console.error("Error fetching sensor data", err);
+      }
+    };
+
+    fetchSensorData();
+    const interval = setInterval(fetchSensorData, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/patients')
@@ -41,6 +61,12 @@ const PatientDetail = () => {
       <p><strong>Nurse Name:</strong> {patient.nurse}</p>
       <p><strong>Contact Number:</strong> {patient.contact}</p>
       <p className={`status ${patient.status}`}>{patient.statusText}</p>
+      <p>🌫️ Humidity: {humidity !== null ? `${humidity}%` : "Loading..."}</p>
+      <p>
+        🌍 Place:{" "}
+        {place ? `${place.city}, ${place.district}` : "Loading..."}
+      </p>
+
       <br />
       <button onClick={() => navigate('/dashboard')}>Back to Dashboard</button>
     </div>
