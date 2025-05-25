@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import WeatherWidget from "./WeatherWidget";
 import "./Dashboard.css";
 
+
 const Dashboard = ({ user }) => {
   const [patients, setPatients] = useState([]);
   const [showData, setShowData] = useState(null);
@@ -25,6 +26,7 @@ const Dashboard = ({ user }) => {
         console.log(response.data);
       })
       .catch(error => console.error('Error fetching data:', error));
+      navigate(`/patient/${id}`);
   };
 
   return (
