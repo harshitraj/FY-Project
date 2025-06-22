@@ -6,7 +6,7 @@ const WeatherWidget = () => {
   const [weather, setWeather] = useState(null);
   const [locationAllowed, setLocationAllowed] = useState(true);
 
-  const API_KEY = "YOUR_KEY"; // replace this with your real API key
+  const API_KEY = "1d345797293b3441bd60474356012a7f"; 
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -15,7 +15,7 @@ const WeatherWidget = () => {
         async (position) => {
           const { latitude, longitude } = position.coords;
           console.log("Location obtained:", position);  // Log position object
-
+ 
           try {
             const response = await axios.get(
               `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`

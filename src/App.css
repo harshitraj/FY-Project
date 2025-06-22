@@ -1,5 +1,5 @@
 /* App.css */
-
+@import "tailwindcss";
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(to right, #e0eafc, #cfdef3);

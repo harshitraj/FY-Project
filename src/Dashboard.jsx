@@ -42,7 +42,7 @@ const Dashboard = ({ user }) => {
       {user?.role === "admin" && (
         <div>
           <h3>Admin Dashboard - Bed Status</h3>
-          <div className="grid-container">
+          <div className="grid-container grid-3">
             {patients.map((patient, i) => {
               const statusClass =
                 patient.status === "dry" ? "green" :

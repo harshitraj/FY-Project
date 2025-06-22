@@ -4,8 +4,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./PatientDetail.css";
 
 const PatientDetail = () => {
-  const [humidity, setHumidity] = useState(null); //Temporary variable for humidity
+  // const [humidity, setHumidity] = useState(null); //Temporary variable for humidity
+  const [wetness, setWetness] = useState(null); //Temporary variable for humidity
   const [place, setPlace] = useState(null); //Temporary variable for place
+  const [status, setStatus] = useState(null); //Temporary variable for status
   const [patients, setPatients] = useState([]);
   const [patientIndex, setPatientIndex] = useState(null);
   const [patient, setPatient] = useState(null);
@@ -15,9 +17,11 @@ const PatientDetail = () => {
    useEffect(() => {
     const fetchSensorData = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/sensor");
-        setHumidity(res.data.humidity);
-        setPlace(res.data.place);
+        const res = await axios.get("http://localhost:5000/api/sensor/");
+        // setHumidity(res.data.humidity);
+        // setPlace(res.data.place);
+        // setStatus(res.data.status);
+        setWetness(res.data.wetness);
       } catch (err) {
         console.error("Error fetching sensor data", err);
       }
@@ -61,11 +65,9 @@ const PatientDetail = () => {
       <p><strong>Nurse Name:</strong> {patient.nurse}</p>
       <p><strong>Contact Number:</strong> {patient.contact}</p>
       <p className={`status ${patient.status}`}>{patient.statusText}</p>
-      <p>🌫️ Humidity: {humidity !== null ? `${humidity}%` : "Loading..."}</p>
-      <p>
-        🌍 Place:{" "}
-        {place ? `${place.city}, ${place.district}` : "Loading..."}
-      </p>
+      <p>🌫️ Wetness: {wetness !== null ? `${wetness}` : "Loading..."}</p>
+      {/* <p>🌍 Place: {place !== null ? `${place.city}` : "Loading..."}</p> */}
+      {/* <p>🌍 Status: `{status !== null ? `${status}` : "Loading..."}</p> */}
 
       <br />
       <button onClick={() => navigate('/dashboard')}>Back to Dashboard</button>
